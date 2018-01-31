@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sentinel2dd module &mdash; Sentinel2 Data Downloader 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Sentinel2 Data Downloader 0.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Sentinel2-DDPython" href="modules.html"/>
+        <link rel="next" title="spatialops package" href="spatialops.html"/>
+        <link rel="prev" title="runningtime module" href="runningtime.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Sentinel2 Data Downloader
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2-4-g77ca32b
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sentinel2-DDPython</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="runningtime.html">runningtime module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sentinel2dd module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spatialops.html">spatialops package</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sentinel2 Data Downloader</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Sentinel2-DDPython</a> &raquo;</li>
+        
+      <li>sentinel2dd module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/sentinel2dd.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-sentinel2dd">
+<span id="sentinel2dd-module"></span><h1>sentinel2dd module<a class="headerlink" href="#module-sentinel2dd" title="Permalink to this headline">¶</a></h1>
+<p>sentinel2dd.py – Sentinel2 Data Downloader Module</p>
+<p>This module bundles established tools to make downloading atmospherically
+corrected Sentinel2 optical imagery as easy as possible. Queries are made
+with constraints including date range, cloud percent, and polygonal extent,
+and the resulting list of applicable data can be downloaded and automatically
+atmospherically corrected using a bundled version of the sen2cor toolkit from
+the ESA. For each query, a job list is written to track the status of the
+download and correction processes. Vector files are written to illustrate the
+geographical extent of optical imagery provided the search constraints, as well
+as the simplified version of the query polygon, as the Copernicus API only
+handles simple polygon shapes with less than 200 vertices.</p>
+<p class="rubric">Example</p>
+<p>Run the sentinel2dd.py from the command line, and provide the following
+command line arguments:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python sentinel2dd.py -p polygon.shp -c 35 -d 20170115 20170130
+        -ac 20
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>You have many options for the constraints, including:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-c</span></kbd></td>
+<td>cloud cover percent [0 - 100]</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-a<var>c</var></span></kbd></td>
+<td>atmospheric correction resolution [10, 20, 60]</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td>polygonal extent to search (shp or geojson)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s<var>p</var></span></kbd></td>
+<td>polygonal extent, but simple with &gt; 200 vertices and single poly,
+much faster than -p</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-d</span></kbd></td>
+<td>date range, start end YYYYMMDD YYYYMMDD</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-t<var>iles</var></span></kbd></td>
+<td>list of specific UUID for tiles to download and correct</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-c<var>onv</var></span></kbd></td>
+<td>flag to convert to .tif and simplify name and file structure</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<div class="admonition-todo admonition">
+<p class="first admonition-title">Todo</p>
+<ul class="last simple">
+<li>Should be using multiprocessing to utilize multiple cores</li>
+</ul>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#index-0"><em>original entry</em></a> is located in D:\Winter2018_ShaunCullen\Sentinel2-DDPython\sentinel2dd.py:docstring of sentinel2dd.download_task, line 5.)</p>
+<div class="topic">
+<p class="topic-title first">Links</p>
+<p><a class="reference external" href="http://google.github.io/styleguide/pyguide.html">http://google.github.io/styleguide/pyguide.html</a></p>
+</div>
+<div class="topic">
+<p class="topic-title first">Contact</p>
+<p>Shaun Cullen (shaun [dot] cullen [at] canada [dot] ca)
+January 24 2018
+<a class="reference external" href="https://github.com/sscullen/sentinel2dd">https://github.com/sscullen/sentinel2dd</a></p>
+</div>
+<dl class="attribute">
+<dt id="sentinel2dd.TEMP_DIR">
+<code class="descclassname">sentinel2dd.</code><code class="descname">TEMP_DIR</code><a class="headerlink" href="#sentinel2dd.TEMP_DIR" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> – Folder name for the directory where the Sentinel2 data is
+initially downloaded in the .SAFE format. Keep the files
+here to speed up future requests. May take up a lot of
+disk space.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sentinel2dd.VECTOR_DIR">
+<code class="descclassname">sentinel2dd.</code><code class="descname">VECTOR_DIR</code><a class="headerlink" href="#sentinel2dd.VECTOR_DIR" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> – Folder name for the directory where the job status file
+is stored, as well as the vector files representing the
+simplified query polygon and the overall query coverage
+results.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sentinel2dd.FINAL_DIR">
+<code class="descclassname">sentinel2dd.</code><code class="descname">FINAL_DIR</code><a class="headerlink" href="#sentinel2dd.FINAL_DIR" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> – Folder name for the directory where the final product of
+.tif files are stored.
+Folder structure and file names are simplified.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sentinel2dd.ATMOS_CORRECTION">
+<code class="descclassname">sentinel2dd.</code><code class="descname">ATMOS_CORRECTION</code><a class="headerlink" href="#sentinel2dd.ATMOS_CORRECTION" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> – If atmospheric correction is required, the
+resolution of correction (10, 20, 60) is stored
+here, or 0 is stored if atmos correction is not
+specified.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sentinel2dd.HiddenPrints">
+<em class="property">class </em><code class="descclassname">sentinel2dd.</code><code class="descname">HiddenPrints</code><a class="headerlink" href="#sentinel2dd.HiddenPrints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Small utility class to suppress 3rd party print statements</p>
+<p>This class allows redirect of the stdout so you can suppress unwanted
+print statements from 3rd party libraries. Using the built in funcs
+__enter__ and __exit__, you can easily set up a block of code to
+suppress the print statements with the <code class="docutils literal"><span class="pre">with</span></code> keyword.</p>
+<p class="rubric">Example</p>
+<p>Use the with keyword to start suppressing print statements:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">HiddenPrints</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Does NOT go to stdout&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DOES go to stdout&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is just a small utility class and can safely be ignored. Note,
+this is just a test of a note.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.convert_and_move">
+<code class="descclassname">sentinel2dd.</code><code class="descname">convert_and_move</code><span class="sig-paren">(</span><em>filename</em>, <em>date</em>, <em>atmos_cor</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.convert_and_move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use GDAL to convert to .tif, simplify name of result.</p>
+<p>This function uses a helper function that utilizes the GDAL library
+to convert the downloaded and     corrected .jp2 to .tif, and rename the result using a simpler format     and folder structure compared to the original .SAFE structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">S2A_MSIL2A_20170517T152631_N0205_R068_T20TMS_20170517T152629</span><span class="o">.</span><span class="n">SAFE</span>
+<span class="o">--&gt;</span>
+<span class="n">GRANULE</span>
+<span class="o">--&gt;</span>
+<span class="n">L2A_T20TMS_A009932_20170517T152629</span>
+<span class="o">--&gt;</span>
+<span class="n">IMG_DATA</span>
+<span class="o">--&gt;</span>
+<span class="n">R20m</span>
+<span class="o">--&gt;</span>
+<span class="n">L2A_T20TMS_20170517T152631_TCI_20m</span><span class="o">.</span><span class="n">jp2</span>
+</pre></div>
+</div>
+<p>Becomes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">S2_20_T_MS_20170517</span>
+<span class="o">--&gt;</span>
+<span class="n">S2_20_T_MS_20170517_TCI_20m</span><span class="o">.</span><span class="n">tif</span>
+</pre></div>
+</div>
+<p>Once the image files are converted and moved, the metadata file from the     granule folder is copied and renamed, and finally the entire folder is     compressed using the <code class="docutils literal"><span class="pre">zipfile</span></code> module. The func initial checks if the     .zip already exists and aborts if it does.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>str</em>) – Name of the folder containing the product, in the form             <code class="docutils literal"><span class="pre">S2A_MSIL2A_20170517T152631_N0205_R068_T20TMS_20170517T152629.SAFE</span></code></li>
+<li><strong>date</strong> (<em>Date</em>) – Date object representing the ‘beginposition’ date of the             acquisition of imagery.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">“Already converted” if the target directory already exists for
+the renamed and converted files, or “Finished” messages if successful.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.correct_product">
+<code class="descclassname">sentinel2dd.</code><code class="descname">correct_product</code><span class="sig-paren">(</span><em>product_id</em>, <em>folder</em>, <em>ac_resolution</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.correct_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the sen2cor correction process using subprocess</p>
+<p>This is a simple wrapper for calling the command line tool sen2cor.
+This function uses <code class="docutils literal"><span class="pre">subprocess</span></code> module to call a local version of
+sen2cor in the “sen2cor240” folder. It uses the function args to
+specify the folder to save the atmospherically corrected product
+(should be TEMP_DIR), and to set the resolution of the correction (20m
+is a good default).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Here would be where a user supplied L2A_GIPP.xml would be     specified, which would allow the DEM correction to be performed.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>product_id</strong> (<em>str</em>) – Title of the product, in the form:         <code class="docutils literal"><span class="pre">S2A_MSIL1C_20170404T183821_N0204_R027_T12UVF_20170404T183816</span></code></li>
+<li><strong>folder</strong> (<em>str</em>) – Location to save the corrected .SAFE folder, should be         <code class="docutils literal"><span class="pre">TEMP_DIR</span></code></li>
+<li><strong>ac_resolution</strong> (<em>int</em>) – Resolution to perform the atmospheric correction         at. 20 is usually a good compromise between time and accuracy.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">‘success’ if everything went well, or ‘failed (Exception)’ if         something went wrong.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.download_product">
+<code class="descclassname">sentinel2dd.</code><code class="descname">download_product</code><span class="sig-paren">(</span><em>product_id</em>, <em>folder</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.download_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses <code class="docutils literal"><span class="pre">sentinelhub</span></code> to download from AWS S3 Bucket</p>
+<p>This is a simple wrapper function that utilizes the <code class="docutils literal"><span class="pre">sentinelhub</span></code>     library to download S2 data from AWS. If an exception is encountered,     the function returns a failed status (str) which is used in the job log     file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>product_id</strong> (<em>str</em>) – Title of the product to download. It is looking for         a product title in the form:         <code class="docutils literal"><span class="pre">S2A_MSIL1C_20170404T183821_N0204_R027_T12UVF_20170404T183816</span></code></li>
+<li><strong>folder</strong> (<em>str</em>) – Name of the relative folder to store the .SAFE download         in. Should use TEMP_DIR, but ‘.’ is a valid option as well.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">“success” if everything works, “failed (Exception details)”             if it does not work.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.download_products">
+<code class="descclassname">sentinel2dd.</code><code class="descname">download_products</code><span class="sig-paren">(</span><em>product_list</em>, <em>args</em>, <em>date_string</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.download_products" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over list of products, starts download_task for each.</p>
+<p>Creates a list of product dicts from the dict object     (product_id are the keys). The list of dicts has the atmos correction     parameter added, and this list is used to start up download_task with     a <code class="docutils literal"><span class="pre">Pool</span></code> object. As each download_task returns, the jobStatus dicts are     gathered into jobStatus list, and when all products have finished, the     overall job status (time started, time taken, initial arg list) are added     to the jobStatus list, and this list is written out to a JSON file in the     VECTOR_DIR. Finally, .jp2 files are converted to .tif and moved with a new     name and folder structure using convert_and_move() function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>product_list</strong> (<em>dict</em>) – A dictionary of product dict, where the product_id
+is the key.</li>
+<li><strong>args</strong> (<em>Namespace</em>) – A namespace object that has the original command line
+inputs as properties.</li>
+<li><strong>date_string</strong> (<em>str</em>) – Str representing the current datetime when the job
+was started.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.download_task">
+<code class="descclassname">sentinel2dd.</code><code class="descname">download_task</code><span class="sig-paren">(</span><em>product</em>, <em>pool</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.download_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Groups download and correction tasks, managed by a <code class="docutils literal"><span class="pre">Pool</span></code>.</p>
+<p>This function groups together the download_product, correct_product     routines, allowing a <code class="docutils literal"><span class="pre">multiprocessing</span></code> <code class="docutils literal"><span class="pre">Pool</span></code> to manage allocation     of new processes dispatched using this function. Job status dict takes     the returned statuses of the download and correction tasks, as well as     their running times, and the jobStatus is returned. A geojson footprint     of the individual product is generated as well.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<ul class="last simple">
+<li>Should be using multiprocessing to utilize multiple cores</li>
+</ul>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>product</strong> (<em>str</em>) – The S2 product dictionary, containing all attributes
+from <code class="docutils literal"><span class="pre">product_attribute_list.txt</span></code>.</li>
+<li><strong>pool</strong> (<em>str</em>) – A multiprocessing Pool object, used to run correction_task
+using apply_async(). The result of the async op is retrieved using
+get() on the asyncresult object returned from apply_async().</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Job status dictionary is returned, containing the result of the
+download and correction tasks, as well as their running times.</p>
+<p>Dictionary keys are:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">download_status</span><span class="p">,</span>
+    <span class="n">correction_status</span><span class="p">,</span>
+    <span class="n">conversion_status</span><span class="p">,</span>
+    <span class="n">download_time</span><span class="p">,</span>
+    <span class="n">download_time_string</span><span class="p">,</span>
+    <span class="n">correction_time</span><span class="p">,</span>
+    <span class="n">correction_time_string</span><span class="p">,</span>
+    <span class="n">conversion_time</span><span class="p">,</span>
+    <span class="n">conversion_time_string</span><span class="p">,</span>
+    <span class="n">product_UUID</span><span class="p">,</span>
+    <span class="n">tild_ID</span><span class="p">,</span>
+    <span class="n">date</span>
+    <span class="n">size</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.get_utm_tile">
+<code class="descclassname">sentinel2dd.</code><code class="descname">get_utm_tile</code><span class="sig-paren">(</span><em>product_name</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.get_utm_tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the UTM zone and number from the product name.</p>
+<p>Utility func to extract the MGRS tile id values from a product name in
+the form:
+<code class="docutils literal"><span class="pre">S2A_MSIL1C_20170404T183821_N0204_R027_T12UVF_20170404T183816</span></code>
+where <code class="docutils literal"><span class="pre">T12UVF</span></code> is the relevant part of the string we are looking for.</p>
+<p>If the product name is in the form:
+<code class="docutils literal"><span class="pre">S2A_OPER_PRD_MSIL1C_PDMC_20160101T001237_</span>&#160;&#160;&#160; <span class="pre">R027_V20151231T184606_20151231T184606</span></code>
+This means that the product is in an older format with multiple GRANULES
+per product, which means that the individual granule names would contain
+the MGRS information, not the product name. Returns a <code class="docutils literal"><span class="pre">namedtuple</span></code> with
+the tile information, accessible with dot notation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>product_name</strong> (<em>str</em>) – Name of the product to extract MGRS info from.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A namedtuple of type MGRSTile, with the properties
+zone (UTM zone number), band (MGRS latitude band number), squareID
+(MGRS 100km 2-letter square ID), and string (str repr of tile info).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(namedtuple)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.list_results">
+<code class="descclassname">sentinel2dd.</code><code class="descname">list_results</code><span class="sig-paren">(</span><em>product_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.list_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over products and displays relevant attributes.</p>
+<dl class="docutils">
+<dt>Output:</dt>
+<dd>Ordered number,
+uuid (b5d256aa-8fb7-47fb-a59d-52d5ca5c6db0),
+size (Data size in MB),
+cloud (cloud cover %),
+tile (MGRS UTM NUM and ZONE, 50k),
+date (beginposition in YYYYMMDD format),
+orbitnumber (absolute position)</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.main_loop">
+<code class="descclassname">sentinel2dd.</code><code class="descname">main_loop</code><span class="sig-paren">(</span><em>product_dict</em>, <em>args</em>, <em>current_date</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.main_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>After the initial query, prompts the user to proceed.</p>
+<p>After doing the initial query with query_copernicus_api, this function     asks the user if they would like to proceed with the download (and     possible correction) process (press d key), or to look at the list of     results (press l key). Any other input will exit the script. Query result     of 0 products will exit the script.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>product_dict</strong> (<em>dict</em>) – Dictionary containing the product dictionary for             each result.</li>
+<li><strong>args</strong> (<em>Namespace</em>) – The namespace object containing the CLI parameters             that the script was started with.</li>
+<li><strong>current_date</strong> (<em>date</em>) – Date object representing the date and time when             the script was started.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.parse_cli_args">
+<code class="descclassname">sentinel2dd.</code><code class="descname">parse_cli_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.parse_cli_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the cmd line arguments using argparse library.</p>
+<p>-p = polygon footprint file (SHP or GEOJSON)
+-d = start date (YYYYMMDD) end date (YYYYMMDD)
+-c = cloud cover % (0 - 100)
+-ac = atmos correction (10, 20, 60)
+-tiles = download specific tiles by UUID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Object containing the cli args addressable by ‘dest’,
+:argument in the add_argument() function.
+EX: arg_obj.polygon:<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">polygon</span><span class="p">,</span>
+    <span class="n">dates</span><span class="p">,</span>
+    <span class="n">cloud</span><span class="p">,</span>
+    <span class="n">ac</span><span class="p">,</span>
+    <span class="n">tilelist</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Namespace</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.query_copernicus_api">
+<code class="descclassname">sentinel2dd.</code><code class="descname">query_copernicus_api</code><span class="sig-paren">(</span><em>cli_args</em>, <em>date</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.query_copernicus_api" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read in the parameters and retrieve matches from the ESA API</p>
+<p>This function utilizes the <code class="docutils literal"><span class="pre">sentinelsat</span></code> library to query the ESA     Copernicus API for data tiles that match the parameters set up in the     command line when the program is first executed. Choices are made here     depending on the initial CLI arguments, mainly whether to query by polygon     extent or by specific tile UUIDs. The rest of the parameters are     optional and have default values. Remember that the Copernicus API can     handle polygon query with MAX 200 vertices, so any complex multipolygon     input will have to be simplified and converted to a single polygon OR     the API will be queried for each polygon of the multipolygon file, which     will take much longer. Right now the polygon file input can be SHP or     GEOJSON, but work can be done to support more file inputs as the     example exists using OGR to convert a SHP input.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Right now, complex operations to simplify the input polygon are         performed inside this function. These should be moved ASAP to the         ogr/GDAL helper module. Additional options should allow the user to         run a simple query if the polygon contains less than 200 vertices.         It is quite slow to run a query with a polygon with many individual         parts, so work should be done to improve the strategy for simplifying         (concave hull, instead of convex, create a single polygon from a group         of close polygons, etc). More work to be done in this aspect.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cli_args</strong> (<em>Namespace</em>) – <code class="docutils literal"><span class="pre">argparse</span></code> cli arguments object containing
+original input to script.</li>
+<li><strong>date</strong> (<em>Date</em>) – Date object representing start time of running script.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A dictionary that holds product dictionaries, with the product             UUID as the key.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.write_job_status">
+<code class="descclassname">sentinel2dd.</code><code class="descname">write_job_status</code><span class="sig-paren">(</span><em>job_status_list</em>, <em>date_string</em>, <em>job_runtime</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.write_job_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple wrapper for writing out the job statuses to .json.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sentinel2dd.zip_directory">
+<code class="descclassname">sentinel2dd.</code><code class="descname">zip_directory</code><span class="sig-paren">(</span><em>dirname</em><span class="sig-paren">)</span><a class="headerlink" href="#sentinel2dd.zip_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Small wrapper function that uses the ZipFile module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dirname</strong> (<em>str</em>) – The name of the new folder inside FINAL_DIR that has             all the renamed and converted data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spatialops.html" class="btn btn-neutral float-right" title="spatialops package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="runningtime.html" class="btn btn-neutral" title="runningtime module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Shaun Cullen.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

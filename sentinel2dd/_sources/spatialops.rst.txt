@@ -1,0 +1,30 @@
+spatialops package
+==================
+
+Submodules
+----------
+
+spatialops\.converter module
+----------------------------
+
+.. automodule:: spatialops.converter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+spatialops\.ogrsandbox module
+-----------------------------
+
+.. automodule:: spatialops.ogrsandbox
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: spatialops
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spatialops package &mdash; Sentinel2 Data Downloader 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Sentinel2 Data Downloader 0.0.1 documentation" href="index.html"/>
+        <link rel="up" title="Sentinel2-DDPython" href="modules.html"/>
+        <link rel="prev" title="sentinel2dd module" href="sentinel2dd.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Sentinel2 Data Downloader
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2-4-g77ca32b
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sentinel2-DDPython</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="runningtime.html">runningtime module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentinel2dd.html">sentinel2dd module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">spatialops package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spatialops.converter">spatialops.converter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spatialops.ogrsandbox">spatialops.ogrsandbox module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spatialops">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sentinel2 Data Downloader</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Sentinel2-DDPython</a> &raquo;</li>
+        
+      <li>spatialops package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/spatialops.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spatialops-package">
+<h1>spatialops package<a class="headerlink" href="#spatialops-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-spatialops.converter">
+<span id="spatialops-converter-module"></span><h2>spatialops.converter module<a class="headerlink" href="#module-spatialops.converter" title="Permalink to this headline">¶</a></h2>
+<p>converter.py – Part of spatialops Module</p>
+<p>Bundle of helper functions for converting spatial data.</p>
+<p>Utilizes OGR and GDAL to do conversions between different vector types, and
+also for different raster types. The module will simplify input polygons,
+and generate output polygons.</p>
+<div class="topic">
+<p class="topic-title first">Contact</p>
+<p>Shaun Cullen (shaun [dot] cullen [at] canada [dot] ca)
+January 29 2018
+<a class="reference external" href="https://github.com/sscullen/sentinel2dd">https://github.com/sscullen/sentinel2dd</a></p>
+</div>
+<dl class="class">
+<dt id="spatialops.converter.Converter">
+<em class="property">class </em><code class="descclassname">spatialops.converter.</code><code class="descname">Converter</code><a class="headerlink" href="#spatialops.converter.Converter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class that bundles the helper spatial conversion functions.</p>
+<dl class="method">
+<dt id="spatialops.converter.Converter.convert_jp2_to_tif">
+<code class="descname">convert_jp2_to_tif</code><span class="sig-paren">(</span><em>original_file</em>, <em>destination_dir</em>, <em>atmos_cor</em>, <em>new_path</em><span class="sig-paren">)</span><a class="headerlink" href="#spatialops.converter.Converter.convert_jp2_to_tif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts jp2 to tif, renames/reorganizes original .SAFE download.</p>
+<p>This function utilizes GDAL to convert the original .jp2 image data to         .tif image data. It takes the original folder name, and a destination         folder, and then puts the converted file in the correctly named folder         inside the destination folder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>original_file</strong> (<em>str</em>) – Name of the folder for the original .SAFE
+data.</li>
+<li><strong>destination_dir</strong> (<em>str</em>) – Name of the folder where the converted                 file will be copied to.</li>
+<li><strong>atmos_cor</strong> (<em>int</em>) – If atmos correction is specified, value will be
+int of 10, 20, or 60. If atmos correction is not specified,
+value will be 0.</li>
+<li><strong>new_path</strong> (<em>str</em>) – Path to directory to save the converted jp2 files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spatialops.converter.Converter.create_coverage_poly">
+<code class="descname">create_coverage_poly</code><span class="sig-paren">(</span><em>product_dict</em>, <em>date_string</em>, <em>output_folder</em><span class="sig-paren">)</span><a class="headerlink" href="#spatialops.converter.Converter.create_coverage_poly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a vector file representing the geog coverage of the data.</p>
+<p>The function utilizes a product dict to create a multipolygon vector file         representing the geographic coverage of data that was downloaded based on         the query parameters specified when the program is run. Select attributes         are extracted from the product dict and added to each polygon of the         vector file, which adds metadata to the visualization vector file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>product_dict</strong> (<em>dict</em>) – Dictionary containing all the attributes found in
+<code class="docutils literal"><span class="pre">product_attribute_list.txt</span></code>.</li>
+<li><strong>date_string</strong> (<em>str</em>) – String representation of the date when the query                 was started.</li>
+<li><strong>output_folder</strong> (<em>str</em>) – Str repr of the name of folder to write the
+resulting geojson file to.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spatialops.converter.Converter.create_tile_footprint">
+<code class="descname">create_tile_footprint</code><span class="sig-paren">(</span><em>wkt</em>, <em>output</em><span class="sig-paren">)</span><a class="headerlink" href="#spatialops.converter.Converter.create_tile_footprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a geojson vector file from the tile footprint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wkt</strong> (<em>str</em>) – Wellknown Text (wkt) representation of a polygon
+obtained from the tile product metadata.</li>
+<li><strong>output</strong> (<em>str</em>) – Path to save the resulting GeoJson converted file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spatialops.converter.Converter.get_footprint_from_simple_poly">
+<code class="descname">get_footprint_from_simple_poly</code><span class="sig-paren">(</span><em>input_path</em><span class="sig-paren">)</span><a class="headerlink" href="#spatialops.converter.Converter.get_footprint_from_simple_poly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts input vector file into a WKT footprint.</p>
+<p>Used to do a conversion of a simple input polygon vector. No
+multipoly and vertices &lt; 200.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_path</strong> (<em>str</em>) – Path to the input vector polygon.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>Wellknown Text repr of the single polygon input, or None</dt>
+<dd>if something went wrong with the conversion.</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(str)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spatialops.converter.Converter.simplify_query_poly">
+<code class="descname">simplify_query_poly</code><span class="sig-paren">(</span><em>input_path</em>, <em>output_path</em><span class="sig-paren">)</span><a class="headerlink" href="#spatialops.converter.Converter.simplify_query_poly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts input extent polygon to geojson and simplifies each part.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_path</strong> (<em>str</em>) – Path to the input vector file.</li>
+<li><strong>output_path</strong> (<em>str</em>) – Path to the directory where the output simplified
+vector file should be saved.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>List of footprints in .wkt format from the broken up and</dt>
+<dd><p class="first last">simplified multipolygon vector file is returned, or None if
+something goes wrong.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(list)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-spatialops.ogrsandbox">
+<span id="spatialops-ogrsandbox-module"></span><h2>spatialops.ogrsandbox module<a class="headerlink" href="#module-spatialops.ogrsandbox" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spatialops.ogrsandbox.cli_setup">
+<code class="descclassname">spatialops.ogrsandbox.</code><code class="descname">cli_setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spatialops.ogrsandbox.cli_setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spatialops.ogrsandbox.convert_shp_to_json">
+<code class="descclassname">spatialops.ogrsandbox.</code><code class="descname">convert_shp_to_json</code><span class="sig-paren">(</span><em>file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#spatialops.ogrsandbox.convert_shp_to_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-spatialops">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spatialops" title="Permalink to this headline">¶</a></h2>
+<p>spatialops module with helper functions for doing vector and raster conv</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="sentinel2dd.html" class="btn btn-neutral" title="sentinel2dd module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Shaun Cullen.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

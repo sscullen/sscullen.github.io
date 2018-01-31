@@ -1,0 +1,7 @@
+sentinel2dd module
+==================
+
+.. automodule:: sentinel2dd
+    :members:
+    :undoc-members:
+    :show-inheritance:
